@@ -1,0 +1,35 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: sans-serif;
+}
+
+header, footer {
+  color: white;
+  background-color: black;
+  font-size: 60%;
+}
+
+#container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 50%;
+  background-color: #eee;
+  text-align: center;
+  padding: 15px;
+}
+
+.grid-element-x {
+  background-color: red;
+  padding: 5px;
+  margin: 5px;
+  width: 10%;
+}
+
+.grid-element-y {
+  background-color: blue;
+  padding: 5px;
+  margin: 5px;
+  width: 10%;
+}
