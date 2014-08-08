@@ -1,3 +1,4 @@
+// build a grid x-wide by y-height using a table
 function tableGrid(x,y) {
   var ourTable = '';
 
@@ -11,25 +12,58 @@ function tableGrid(x,y) {
   }
   ourTable += '</table>'
   $('#main-body').append(ourTable)
-
-
 }
 
-function onHover(color1, color2) {
-   $('.square-default').hover($(this).css({"background-color":"green"}),
-    $(this).css({"background-color":"blue"}));
+// color changes on hover
+function onHover(element, colorIn, colorOut) {
+   $(element).hover(function() {
+     $(this).css("background-color", colorIn);
+   }, function(){
+     $(this).css("background-color", colorOut);
+   });
+ }
+
+// color changes and stays set on click
+function onClick(element, colorClick, colorLeave) {
+  $(element).click(function() {
+    $(this).css("background-color", colorClick);
+    onHover(this, colorClick, colorClick);
+  });
+}
+
+// color cycle
+function colorCycle(element, colorHover, colorLeave, colorClick) {
+  $(element).click(function() {
+    var colorClickTemp = colorClick;
+    var colorLeaveTemp = colorLeave;
+    var colorHoverTemp = colorHover;
+    colorLeave = colorClickTemp;
+    colorClick = colorHoverTemp;
+    colorHover = colorLeaveTemp;
+  });
+}
+
+// reset grid
+function resetGrid(){
+  $('#reset').click(function ()
+  {
+    console.log("yes you clicked it!")
+    $(".square-default").css("background-color", "red")
+  });
 }
 
 
-
+// main
 $(document).ready(function(){
+  //set colors
+  var colorHover = "yellow";
+  var colorLeave = "green";
+  var colorClick = "blue";
+
+
   tableGrid(10,10);
-  $('.square-default').click(function() {
-    $(this).css("background-color","red")});
-  $('.square-default').hover(function() {
-    $(this).css("background-color","green")},
-     function() { $(this).css("background-color","blue")}
-   );
 
-
+  onHover(".square-default", colorHover, colorLeave);
+  onClick(".square-default", colorClick, colorLeave);
+  resetGrid();
 });

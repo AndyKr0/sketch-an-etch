@@ -10,6 +10,7 @@ body {
   position: relative;
 
 
+
 }
 
 #main-body {
@@ -18,11 +19,14 @@ body {
   margin-right: auto;
   background-color: #eee;
   text-align: center;
-  width: 100%;
+  width: 960px;
 
 }
 
+.right {
+  float: right;
 
+}
 header, footer {
   color: white;
   background-color: black;
@@ -44,7 +48,6 @@ footer {
 
 table {
 
-
   margin: auto;
   padding: 25px;
   position: center;
@@ -52,7 +55,6 @@ table {
 
 td {
   border: black;
-
   border-style: solid;
 }
 
