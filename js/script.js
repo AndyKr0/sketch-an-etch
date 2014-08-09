@@ -1,3 +1,5 @@
+// FUNCTIONS
+
 // build a grid x-wide by y-height using a table
 function tableGrid(x,y) {
   var ourTable = '';
@@ -14,7 +16,7 @@ function tableGrid(x,y) {
   $('#main-body').append(ourTable)
 }
 
-// color changes on hover
+// color changes on hover, mouseclick
 function mouseEvents(element, colorIn, colorOut, colorClick) {
 
   $(element).on({
@@ -29,45 +31,29 @@ function mouseEvents(element, colorIn, colorOut, colorClick) {
     click: function() {
       $(this).addClass("square-clicked").removeClass('square-default');
       $(".square-clicked").css("background-color", colorClick);
-
     }
-
   });
-   }
+ }
 
 
-// reset grid
-function resetGrid(){
-  $('#reset').click(function ()
-  {
-
-    var gridSize = prompt("Enter grid size:");
-
-    $("#grid").remove();
-    tableGrid(gridSize, gridSize);
-
-
-    //$(".square-default").css("background-color", "red");
-
-
-  });
-}
-
-
-// main
+// MAIN
 
 $(document).ready(function(){
-  //set colors
+  //set colors and grid size
   var colorHover = "yellow";
   var colorLeave = "green";
-  var colorClick = "blue";
-  var gridSize = 5;
+  var colorClick = "hsl(80, 60%, 70%)"
+  var defaultGridSize = 5;
 
   // logic
-  resetGrid();
-  tableGrid(gridSize, gridSize);
-  //onClick(".square-default", colorClick, colorHover);
+  tableGrid(defaultGridSize, defaultGridSize);
   mouseEvents(".square-default", colorHover, colorLeave, colorClick);
 
+  $('#reset').click(function ()
+  {
+    var gridSize = prompt("Enter grid size:");
+    $('#grid').replaceWith(tableGrid(gridSize, gridSize));
+    mouseEvents(".square-default", colorHover, colorLeave, colorClick);
+  });
 
 });
