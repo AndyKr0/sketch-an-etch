@@ -2,7 +2,7 @@
 function tableGrid(x,y) {
   var ourTable = '';
 
-  ourTable += '<table>';
+  ourTable += '<table id="grid">';
   for (var i = 0; i < y ; i++) {
     ourTable +='<tr>';
     for (var j = 0; j < x; j++) {
@@ -15,55 +15,59 @@ function tableGrid(x,y) {
 }
 
 // color changes on hover
-function onHover(element, colorIn, colorOut) {
-   $(element).hover(function() {
-     $(this).css("background-color", colorIn);
-   }, function(){
-     $(this).css("background-color", colorOut);
-   });
- }
+function mouseEvents(element, colorIn, colorOut, colorClick) {
 
-// color changes and stays set on click
-function onClick(element, colorClick, colorLeave) {
-  $(element).click(function() {
-    $(this).css("background-color", colorClick);
-    onHover(this, colorClick, colorClick);
-  });
-}
+  $(element).on({
+    mouseenter: function(){
+      $(this).css("background-color", colorIn);
+    },
+    mouseleave: function() {
+      $(this).css("background-color", colorOut);
+      $(".square-clicked").css("background-color", colorClick);
+    },
 
-// color cycle
-function colorCycle(element, colorHover, colorLeave, colorClick) {
-  $(element).click(function() {
-    var colorClickTemp = colorClick;
-    var colorLeaveTemp = colorLeave;
-    var colorHoverTemp = colorHover;
-    colorLeave = colorClickTemp;
-    colorClick = colorHoverTemp;
-    colorHover = colorLeaveTemp;
+    click: function() {
+      $(this).addClass("square-clicked").removeClass('square-default');
+      $(".square-clicked").css("background-color", colorClick);
+
+    }
+
   });
-}
+   }
+
 
 // reset grid
 function resetGrid(){
   $('#reset').click(function ()
   {
-    console.log("yes you clicked it!")
-    $(".square-default").css("background-color", "red")
+
+    var gridSize = prompt("Enter grid size:");
+
+    $("#grid").remove();
+    tableGrid(gridSize, gridSize);
+
+
+    //$(".square-default").css("background-color", "red");
+
+
   });
 }
 
 
 // main
+
 $(document).ready(function(){
   //set colors
   var colorHover = "yellow";
   var colorLeave = "green";
   var colorClick = "blue";
+  var gridSize = 5;
 
-
-  tableGrid(10,10);
-
-  onHover(".square-default", colorHover, colorLeave);
-  onClick(".square-default", colorClick, colorLeave);
+  // logic
   resetGrid();
+  tableGrid(gridSize, gridSize);
+  //onClick(".square-default", colorClick, colorHover);
+  mouseEvents(".square-default", colorHover, colorLeave, colorClick);
+
+
 });
